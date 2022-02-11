@@ -72,7 +72,7 @@ void minHeapify(struct MinH* minHeap, int idx) {
     }
 }
 
-// Check if size if 1
+// Check if size is 1
 int checkSizeOne(struct MinH* minHeap) {
     return (minHeap->size == 1);
 }
@@ -101,7 +101,7 @@ void insertMinHeap(struct MinH* minHeap, struct MinHNode* minHeapNode) {
     minHeap->array[i] = minHeapNode;
 }
 
-// BUild min heap
+// Build min heap
 void buildMinHeap(struct MinH* minHeap) {
     int n = minHeap->size - 1;
     int i;
@@ -173,7 +173,7 @@ int main() {
     int freq[5];
 
     for (int i = 0; i < 5; i++) {
-        cout << "\nType the burst time of process " << i + 1 << ":" << endl;
+        cout << "\nType the frequency of the character " << i + 1 << ":" << endl;
         cin >> freq[i];
     }
 
