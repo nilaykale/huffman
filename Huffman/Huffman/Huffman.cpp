@@ -38,11 +38,13 @@ struct MinH* createMinH(unsigned capacity) {
 }
 
 // Print the array
-void printArray(int arr[], int n) {
+void printArray(int arr[], int n, int freq[], int prob) {
     int i;
+    float probab = prob * 0.01;
     for (i = 0; i < n; ++i)
         cout << arr[i];
 
+    cout << "                " << probab;
     cout << "\n";
 }
 
@@ -143,43 +145,44 @@ struct MinHNode* buildHfTree(char item[], int freq[], int size) {
     }
     return extractMin(minHeap);
 }
-void printHCodes(struct MinHNode* root, int arr[], int top) {
+void printHCodes(struct MinHNode* root, int arr[], int top, int freq[]) {
     if (root->left) {
         arr[top] = 0;
-        printHCodes(root->left, arr, top + 1);
+        printHCodes(root->left, arr, top + 1, freq);
     }
 
     if (root->right) {
         arr[top] = 1;
-        printHCodes(root->right, arr, top + 1);
+        printHCodes(root->right, arr, top + 1, freq);
     }
     if (isLeaf(root)) {
+        int prob = root->freq;
         cout << root->item << "  | ";
-        printArray(arr, top);
+        printArray(arr, top, freq, prob);
     }
 }
 
 // Wrapper function
 void HuffmanCodes(char item[], int freq[], int size) {
     struct MinHNode* root = buildHfTree(item, freq, size);
-
     int arr[MAX_TREE_HT], top = 0;
 
-    printHCodes(root, arr, top);
+    printHCodes(root, arr, top, freq);
 }
 
 int main() {
-    char arr[] = { 'A', 'B', 'C', 'D', 'E'};
-    int freq[5];
+    char arr[] = { 'A', 'B', 'C', 'D', 'E', 'F'};
+    int freq[6];
 
-    for (int i = 0; i < 5; i++) {
-        cout << "\nType the frequency of the character " << i + 1 << ":" << endl;
+
+    for (int i = 0; i < 6; i++) {
+        cout << "\nType the frequency of the character  " << i + 1 << ":" << endl;
         cin >> freq[i];
     }
 
     int size = sizeof(arr) / sizeof(arr[0]);
 
-    cout << "Char | Huffman code ";
+    cout << "Char | Huffman code | Probability";
     cout << "\n----------------------\n";
     HuffmanCodes(arr, freq, size);
 }
